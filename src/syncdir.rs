@@ -387,7 +387,7 @@ impl SyncDir {
         mailbox: &Mailbox,
     ) -> Result<(), String> {
         let modseq = if self.cache.is_valid(mailbox) {
-            Some(self.cache.get_highest_mod_seq())
+            self.cache.get_highest_mod_seq()
         } else {
             self.delete_imap_cache()?;
             None

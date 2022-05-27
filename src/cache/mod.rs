@@ -65,9 +65,7 @@ impl Cache {
         self.state.update_imap(
             mailbox.uid_validity.expect("No UIDVALIDITY in Mailbox"),
             mailbox.uid_next.expect("No UIDNEXT in Mailbox"),
-            mailbox
-                .highest_mod_seq
-                .expect("No HIGHESTMODSEQ in Mailbox"),
+            mailbox.highest_mod_seq,
         )
     }
 
@@ -75,7 +73,7 @@ impl Cache {
         self.state.last_seen_uid()
     }
 
-    pub fn get_highest_mod_seq(&self) -> u64 {
+    pub fn get_highest_mod_seq(&self) -> Option<u64> {
         self.state.highest_mod_seq()
     }
 

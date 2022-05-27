@@ -26,7 +26,7 @@ pub struct Config {
 impl Config {
     pub fn new() -> Config {
         let mut dir = Config::dir();
-        dir.push("config");
+        dir.push("config.toml");
         let mut f = File::open(dir).unwrap();
         let mut buf: String = String::new();
         f.read_to_string(&mut buf).unwrap();
@@ -53,11 +53,11 @@ impl Config {
     }
 
     pub fn dir() -> PathBuf {
-        let mut home = match dirs_next::home_dir() {
+        let mut home = match dirs_next::config_dir() {
             Some(path) => path,
             _ => PathBuf::from(""),
         };
-        home.push(".runt");
+        home.push("runt");
         home
     }
 }

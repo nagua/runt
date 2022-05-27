@@ -14,7 +14,7 @@ pub struct StateFileFields {
     uid_validity: u32,
     uid_next: u32,
     last_seen_uid: u32,
-    highest_mod_seq: u64,
+    highest_mod_seq: Option<u64>,
 }
 
 impl StateFile {
@@ -36,7 +36,7 @@ impl StateFile {
                 uid_validity: 0,
                 uid_next: 0,
                 last_seen_uid: 0,
-                highest_mod_seq: 0,
+                highest_mod_seq: None,
             },
         };
         blank.save().map(|_| blank)
@@ -56,7 +56,7 @@ impl StateFile {
         &mut self,
         uid_validity: u32,
         uid_next: u32,
-        highest_mod_seq: u64,
+        highest_mod_seq: Option<u64>,
     ) -> Result<(), String> {
         self.state.imap_last = chrono::offset::Utc::now().timestamp_millis();
         self.state.uid_validity = uid_validity;
@@ -114,7 +114,7 @@ impl StateFile {
         self.state.last_seen_uid
     }
 
-    pub fn highest_mod_seq(&self) -> u64 {
+    pub fn highest_mod_seq(&self) -> Option<u64> {
         self.state.highest_mod_seq
     }
 }
